@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -6,9 +6,10 @@ import {useHistory} from 'react-router-dom';
 function Details() {
 
     const movies = useSelector(store => store.movies);
-
-
+    const dispatch = useDispatch();
     const history = useHistory();
+
+   
 
     const backToList = () => {
         history.push('/')
@@ -16,12 +17,21 @@ function Details() {
 
     return(
     <>
-        <button onClick={backToList}>Back to List</button>
-        <h3>{movies.title}</h3>
-        <img src={movies.poster}/>
-        <p>{movies.description}</p>
-        {/* bring in pic of the movie */}
-        {/* bring in details */}
+        <main>
+            <button onClick={backToList}>Back to List</button>
+            <section className="movies">
+                {movies.map(movie => {
+                    return (
+                        <div key={movie.id} >
+                            <h3>{movie.title}</h3>
+                            <img src={movie.poster} />
+                            <p>{movie.description}</p>
+                        </div>
+
+                    );
+                })}
+            </section>
+        </main>
     </>
     )
 }

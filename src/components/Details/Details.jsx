@@ -7,33 +7,29 @@ function Details() {
 
     const movies = useSelector(store => store.movies);
     const genres = useSelector(store => store.genres);
+    
 
     const dispatch = useDispatch();
     const history = useHistory();
 
-   
-
     const backToList = () => {
         history.push('/')
     }
-
+   
     return(
     <>
         <main>
             <button onClick={backToList}>Back to List</button>
-            <section className="movies">
-                {movies.map(movie => {
-                    return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <img src={movie.poster} /> 
-                            <h4>{genres.name}</h4>
-                            <p>{movie.description}</p>
-                        </div>
-
-                    );
-                })}
-            </section>
+                            <h3>{movies[0].title}</h3>
+                            <img src={movies[0].poster} /> 
+                            <h4>Genres: {genres.map(genreList => {
+                                return (
+                                    <div key={genreList.id}>
+                                        <p>{genreList.name}</p>
+                                    </div>
+                                );
+                            })}</h4>
+                            <p>{movies[0].description}</p>
         </main>
     </>
     )

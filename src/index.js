@@ -17,7 +17,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIE', fetchMovie);
     yield takeEvery('FETCH_GENRE', fetchGenre);
     yield takeEvery('POST_MOVIE', postMovie);
-    yield takeEvery('POST_GENRE', postGenre);
+
 }
 
 function* fetchAllMovies() {
@@ -61,6 +61,7 @@ function* fetchGenre(action) {
 }
 
 function* postMovie(action) {
+    console.log('in postMovie', action.payload);
     try{
       yield axios.post(`/api/movie`, action.payload)
       yield put({type: 'FETCH_MOVIES' })
@@ -69,14 +70,14 @@ function* postMovie(action) {
     }
   }
 
-  function* postGenre(action) {
-    try{
-      yield axios.post(`/api/genre`, action.payload)
-      yield put({type: 'FETCH_GENRE' })
-    } catch (error) {
-      console.log('error in postGenre', error);
-    }
-  }
+//   function* postGenre(action) {
+//     try{
+//       yield axios.post(`/api/movie`, action.payload)
+//       yield put({type: 'FETCH_GENRE' })
+//     } catch (error) {
+//       console.log('error in postGenre', error);
+//     }
+//   }
 
 
 

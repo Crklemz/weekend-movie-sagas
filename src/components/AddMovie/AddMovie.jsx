@@ -5,8 +5,8 @@ import {useHistory} from 'react-router-dom';
 
 function AddMovie() {
 
-    const [newMovieGenre, setNewMovieGenre] = useState('');
-    let [newMovie, setNewMovie] = useState({title: '', poster: '', description: ''});
+    // const [newMovieGenre, setNewMovieGenre] = useState('');
+    let [newMovie, setNewMovie] = useState({title: '', poster: '', description: '', genre_id: ''});
 
     const dispatch = useDispatch();
     const history = useHistory('');
@@ -25,13 +25,16 @@ function AddMovie() {
     const handleDetailsChange = (event) => {
         setNewMovie({...newMovie, description: event.target.value})
     }
+    const handleGenreChange = (event) => {
+        setNewMovie({...newMovie, genre_id: event.target.value})
+    }
 
     const addMovie = () => {
         dispatch({type: 'POST_MOVIE', payload: newMovie})
-        dispatch({type: 'POST_GENRE', payload: newMovieGenre.id})
+        // dispatch({type: 'POST_GENRE', payload: newMovieGenre})
         history.push('/')
     }
-
+console.log(newMovie.genre_id);
     return(
     <>
         <h3>Add Movies Here!!!</h3>
@@ -39,20 +42,20 @@ function AddMovie() {
                 <input type="text" value={newMovie.title} onChange={handleTitleChange} placeholder="Movie Title" />
                 <input type="url" value={newMovie.poster} onChange={handlePosterChange} placeholder="Movie Poster URL" />
                 <input type="textarea" value={newMovie.description} onChange={handleDetailsChange} placeholder="Movie Details"/>
-            <select name="Category" onChange={(event) => setNewMovieGenre(event.target.value)}>
-                <option id="1" value="Adventure">Adventure</option>
-                <option id="2" value="Animated">Animated</option>
-                <option id="3" value="Biographical">Biographical</option>
-                <option id="4" value="Comedy">Comedy</option>
-                <option id="5" value="Disaster">Disaster</option>
-                <option id="6" value="Drama">Drama</option>
-                <option id="7" value="Epic">Epic</option>
-                <option id="8" value="Fantasy">Fantasy</option>
-                <option id="9" value="Musical">Musical</option>
-                <option id="10" value="Romantic">Romantic</option>
-                <option id="11" value="Science Fiction">Science Fiction</option>
-                <option id="12" value="Space-Opera">Space-Opera</option>
-                <option id="13" value="Superhero">Superhero</option>            
+            <select name="Category" value={newMovie.genre_id} onChange={handleGenreChange}>
+                <option id="1" value="1">Adventure</option>
+                <option id="2" value="2">Animated</option>
+                <option id="3" value="3">Biographical</option>
+                <option id="4" value="4">Comedy</option>
+                <option id="5" value="5">Disaster</option>
+                <option id="6" value="6">Drama</option>
+                <option id="7" value="7">Epic</option>
+                <option id="8" value="8">Fantasy</option>
+                <option id="9" value="9">Musical</option>
+                <option id="10" value="10">Romantic</option>
+                <option id="11" value="11">Science Fiction</option>
+                <option id="12" value="12">Space-Opera</option>
+                <option id="13" value="13">Superhero</option>            
             </select>
             
             <button onClick={goHome}>Cancel</button>

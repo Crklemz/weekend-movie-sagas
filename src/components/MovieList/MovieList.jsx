@@ -15,8 +15,9 @@ function MovieList() {
     }, []);
 
     const goToDetails = (title) => {
-        //send id of the picture clicked to the reducer
+        //send title of the picture clicked to the generators
          dispatch({type: 'FETCH_MOVIE', payload: title })
+         dispatch({type: 'FETCH_GENRE', payload: title })
         //send user to details page
         history.push('/details')
     }

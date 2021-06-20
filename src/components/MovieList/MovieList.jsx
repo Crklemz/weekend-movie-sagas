@@ -14,7 +14,10 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const goToDetails = () => {
+    const goToDetails = (title) => {
+        //send id of the picture clicked to the reducer
+         dispatch({type: 'FETCH_MOVIE', payload: title })
+        //send user to details page
         history.push('/details')
     }
 
@@ -31,8 +34,9 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title} onClick={goToDetails}/>
+                            <img src={movie.poster} alt={movie.title} onClick={event => goToDetails(event.target.alt)}/>
                         </div>
+
                     );
                 })}
             </section>

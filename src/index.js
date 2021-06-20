@@ -15,6 +15,7 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_MOVIE', fetchMovie);
+    yield takeEvery('FETCH_GENRE', fetchGenre);
 }
 
 function* fetchAllMovies() {
@@ -41,6 +42,20 @@ function* fetchMovie(action) {
         yield put({type: 'SET_MOVIES', payload: movie.data})
     } catch {
         console.log('get specific movie - error');
+    }
+}
+
+function* fetchGenre(action) {
+    try {
+        const genre = yield axios.get(`/api/genre?query=SELECT "genres".id, "genres".name, "movies".title
+        FROM "genres"
+        JOIN "movies_genres" ON "movies_genres".genre_id = "genres".id
+        JOIN "movies" ON "movies".id = "movies_genres".movie_id        
+         WHERE "movies".title = '${action.payload}'`);
+        console.log('get specific movie genre', genre.data);
+        yield put({type: 'SET_GENRES', payload: genre.data})
+    } catch {
+        console.log('get specific movie genre - error');
     }
 }
 

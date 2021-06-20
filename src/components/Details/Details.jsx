@@ -6,6 +6,8 @@ import {useHistory} from 'react-router-dom';
 function Details() {
 
     const movies = useSelector(store => store.movies);
+    const genres = useSelector(store => store.genres);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -24,7 +26,8 @@ function Details() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} />
+                            <img src={movie.poster} /> 
+                            <h4>{genres.name}</h4>
                             <p>{movie.description}</p>
                         </div>
 

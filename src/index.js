@@ -30,11 +30,14 @@ function* fetchAllMovies() {
         
 }
 
+
+
 function* fetchMovie(action) {
+    console.log('in fetchMovie, action payload is -->', action.payload);
     //get specific movie
     try {
-        const movie = yield axios.get(`/api/movie?query=${action.payload}`);
-        console.log('get specific movie', movie.data.title, movie.data.poster);
+        const movie = yield axios.get(`/api/movie?query=SELECT * FROM movies WHERE "movies".title = '${action.payload}'`);
+        console.log('get specific movie', movie.data);
         yield put({type: 'SET_MOVIES', payload: movie.data})
     } catch {
         console.log('get specific movie - error');

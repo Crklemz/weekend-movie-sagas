@@ -17,7 +17,9 @@ function Details() {
     return(
     <>
         <button onClick={backToList}>Back to List</button>
+        <h3>{movies.title}</h3>
         <img src={movies.poster}/>
+        <p>{movies.description}</p>
         {/* bring in pic of the movie */}
         {/* bring in details */}
     </>
